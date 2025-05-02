@@ -17,6 +17,7 @@ const CheckBox = ({
     checkboxComponent,
     checkboxDisabledStyle,
     checkboxStyle,
+    checkboxContainerStyle,
     checkboxUnselectedColor,
     checkboxLabelStyle,
   } = checkboxControls ?? {};
@@ -35,7 +36,7 @@ const CheckBox = ({
   return (
     <Pressable
       onPress={onChange ? () => onChange(!value) : null}
-      style={[styles.checkboxContainer]}
+      style={[styles.checkboxContainer, checkboxContainerStyle]}
       disabled={disabled}
       aria-label={typeof label === 'string' ? label : ''}
     >
