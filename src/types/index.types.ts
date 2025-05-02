@@ -61,6 +61,7 @@ type TSearchControls = {
 
 export type TCheckboxControls = {
   checkboxSize?: number;
+  checkboxContainerStyle?: ViewStyle;
   checkboxStyle?: ViewStyle;
   checkboxLabelStyle?: TextStyle;
   checkboxComponent?: React.ReactNode;
