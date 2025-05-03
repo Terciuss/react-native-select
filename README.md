@@ -1,9 +1,6 @@
 [![NPM](https://nodei.co/npm/react-native-input-select.png?downloads=true)](https://nodei.co/npm/react-native-input-select/)
 
 [![npm version](https://badge.fury.io/js/react-native-input-select.svg)](https://badge.fury.io/js/react-native-input-select) [![GitHub stars](https://img.shields.io/github/stars/azeezat/react-native-select?style=social)](https://github.com/azeezat/react-native-select/stargazers) [![CodeQL](https://github.com/azeezat/react-native-select/actions/workflows/codeql.yml/badge.svg)](https://github.com/azeezat/react-native-select/actions/workflows/codeql.yml) [![Release & Publish to NPM](https://github.com/azeezat/react-native-select/actions/workflows/release-and-publish-to-npm.yml/badge.svg)](https://github.com/azeezat/react-native-select/actions/workflows/release-and-publish-to-npm.yml)
-[![coverage](https://github.com/azeezat/react-native-select/actions/workflows/coverage.yml/badge.svg)](https://github.com/azeezat/react-native-select/actions/workflows/coverage.yml)
-[![react-native-input-select](https://snyk.io/advisor/npm-package/react-native-input-select/badge.svg)](https://snyk.io/advisor/npm-package/react-native-input-select)
-[![Coverage Status](https://coveralls.io/repos/github/azeezat/react-native-select/badge.svg?branch=main)](https://coveralls.io/github/azeezat/react-native-select?branch=main)
 
 # react-native-input-select
 
@@ -25,7 +22,7 @@ yarn add react-native-input-select
 
 ## Sandbox
 
-See more examples in [Sandbox](https://azeezat.github.io/react-native-select/)
+[Sandbox](https://azeezat.github.io/react-native-select/)
 
 # iOS
 
@@ -244,43 +241,100 @@ For more examples visit our [wiki page](https://github.com/azeezat/react-native-
 
 ## Props
 
-| Proptypes                 | Datatype                                     | Example                                                                                                                                                                                                                        |
-| ------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| label                     | `string` or `ReactComponent`                 | Countries or `<Text> You can add any component here <Text>`                                                                                                                                                                    |
-| placeholder               | `string`                                     | Select a country                                                                                                                                                                                                               |
-| options                   | `Array`                                      | `[{ name: 'Nigeria', code: 'NG' }, { name: 'Albania', code: 'AL' }]`                                                                                                                                                           |
-| optionLabel               | `string`                                     | `name`                                                                                                                                                                                                                         |
-| optionValue               | `string`                                     | `code`                                                                                                                                                                                                                         |
-| error                     | `string`                                     | `This is a requiredfield`                                                                                                                                                                                                      |
-| helperText                | `string`                                     | `Only few countries are listed`                                                                                                                                                                                                |
-| selectedValue             | `string` or `Array`                          | `AL` or `[AL, AX]`                                                                                                                                                                                                             |
-| onValueChange             | `function`                                   | `()=>{}`                                                                                                                                                                                                                       |
-| isMultiple                | `Boolean`                                    | `true`                                                                                                                                                                                                                         |
-| isSearchable              | `Boolean`                                    | `true`                                                                                                                                                                                                                         |
-| disabled                  | `Boolean`                                    | `true`                                                                                                                                                                                                                         |
-| dropdownIcon              | `React Component`                            | `Image` or `<Text> Show <Text>`                                                                                                                                                                                                |
-| labelStyle                | `Object`                                     | `{color: 'red', fontSize: 15, fontWeight: '500'}`                                                                                                                                                                              |
-| placeholderStyle          | `Object`                                     | `{color: 'blue', fontSize: 15, fontWeight: '500'}`                                                                                                                                                                             |
-| dropdownStyle             | `Object`                                     | `{borderColor: 'blue', margin: 5, borderWidth:0 ...}`                                                                                                                                                                          |
-| dropdownContainerStyle    | `Object`                                     | `{backgroundColor: 'red', width: '30%', ...}`                                                                                                                                                                                  |
-| dropdownIconStyle         | `Object`                                     | `{top: 10 , right: 10, ...}`                                                                                                                                                                                                   |
-| selectedItemStyle         | `Object`                                     | `{fontWeight: '600', color: 'yellow', ...}`                                                                                                                                                                                    |
-| multipleSelectedItemStyle | `Object`                                     | `{backgroundColor: 'red', color: 'yellow', ...}`                                                                                                                                                                               |
-| dropdownErrorStyle        | `Object`                                     | `{borderWidth: 2, borderStyle: 'solid'}`                                                                                                                                                                                       |
-| dropdownErrorTextStyle    | `Object`                                     | `{color: 'red', fontWeight:'500'}`                                                                                                                                                                                             |
-| dropdownHelperTextStyle   | `Object`                                     | `{color: 'green', fontWeight:'500'}`                                                                                                                                                                                           |
-| primaryColor              | `string`                                     | `blue`                                                                                                                                                                                                                         |
-| autoCloseOnSelect         | `boolean`                                    | `false`                                                                                                                                                                                                                        |
-| listHeaderComponent       | `React Component`                            | `<Text> You can add any component here </Text>`                                                                                                                                                                                |
-| listFooterComponent       | `React Component`                            | `<Text> You can add any component here <Text>`                                                                                                                                                                                 |
-| listComponentStyles       | `Object`                                     | `{listEmptyComponentStyle: ViewStyle, itemSeparatorStyle: ViewStyle, sectionHeaderStyle: TextStyle}`                                                                                                                           |
-| listEmptyComponent        | `React Component`                            | `<Text> You can add any component here <Text>`                                                                                                                                                                                 |
-| checkboxControls          | `Object`                                     | `{checkboxSize: number, checkboxStyle: ViewStyle, checkboxLabelStyle: TextStyle, checkboxComponent?: React.ReactNode, checkboxDisabledStyle?: ViewStyle, checkboxUnselectedColor?: ColorValue}`                                |
-| listControls              | `Object`                                     | `{ selectAllText: 'Choose all', unselectAllText: 'Remove all', selectAllCallback: () => {}, unselectAllCallback: () => {}, hideSelectAll: boolean, emptyListMessage: 'No record found', keyboardShouldPersistTaps: "always" }` |
-| searchControls            | `Object`                                     | `{ textInputStyle: ViewStyle \| TextStyle,  textInputContainerStyle: ViewStyle, textInputProps: TextInputProps, searchCallback:(value)=>{}}`                                                                                   |
-| modalControls             | `Object`                                     | `{ modalBackgroundStyle: ViewStyle, modalOptionsContainerStyle: ViewStyle, modalProps: ModalProps}`                                                                                                                            |
-| maxSelectableItems        | `number`                                     | 5                                                                                                                                                                                                                              |
-| ref                       | `useRef<DropdownSelectHandle \| null>(null)` | Use this to open or close the modal as needed e.g dropdownRef.current?.open() or dropdownRef.current?.close()                                                                                                                  |
+| Proptypes                 | Datatype                     | Example                                                                                                                                                                                         |
+| ------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| label                     | `string` or `ReactComponent` | Countries or `<Text> You can add any component here <Text>`                                                                                                                                     |
+| placeholder               | `string`                     | Select a country                                                                                                                                                                                |
+| options                   | `Array`                      | `[{ name: 'Nigeria', code: 'NG' }, { name: 'Albania', code: 'AL' }]`                                                                                                                            |
+| optionLabel               | `string`                     | `name`                                                                                                                                                                                          |
+| optionValue               | `string`                     | `code`                                                                                                                                                                                          |
+| error                     | `string`                     | `This is a requiredfield`                                                                                                                                                                       |
+| helperText                | `string`                     | `Only few countries are listed`                                                                                                                                                                 |
+| selectedValue             | `string` or `Array`          | `AL` or `[AL, AX]`                                                                                                                                                                              |
+| onValueChange             | `function`                   | `()=>{}`                                                                                                                                                                                        |
+| isMultiple                | `Boolean`                    | `true`                                                                                                                                                                                          |
+| isSearchable              | `Boolean`                    | `true`                                                                                                                                                                                          |
+| disabled                  | `Boolean`                    | `true`                                                                                                                                                                                          |
+| dropdownIcon              | `React Component`            | `Image` or `<Text> Show <Text>`                                                                                                                                                                 |
+| labelStyle                | `Object`                     | `{color: 'red', fontSize: 15, fontWeight: '500'}`                                                                                                                                               |
+| placeholderStyle          | `Object`                     | `{color: 'blue', fontSize: 15, fontWeight: '500'}`                                                                                                                                              |
+| dropdownStyle             | `Object`                     | `{borderColor: 'blue', margin: 5, borderWidth:0 ...}`                                                                                                                                           |
+| dropdownContainerStyle    | `Object`                     | `{backgroundColor: 'red', width: '30%', ...}`                                                                                                                                                   |
+| dropdownIconStyle         | `Object`                     | `{top: 10 , right: 10, ...}`                                                                                                                                                                    |
+| selectedItemStyle         | `Object`                     | `{fontWeight: '600', color: 'yellow', ...}`                                                                                                                                                     |
+| multipleSelectedItemStyle | `Object`                     | `{backgroundColor: 'red', color: 'yellow', ...}`                                                                                                                                                |
+| dropdownErrorStyle        | `Object`                     | `{borderWidth: 2, borderStyle: 'solid'}`                                                                                                                                                        |
+| dropdownErrorTextStyle    | `Object`                     | `{color: 'red', fontWeight:'500'}`                                                                                                                                                              |
+| dropdownHelperTextStyle   | `Object`                     | `{color: 'green', fontWeight:'500'}`                                                                                                                                                            |
+| primaryColor              | `string`                     | `blue`                                                                                                                                                                                          |
+| autoCloseOnSelect         | `boolean`                    | `false`                                                                                                                                                                                         |
+| hideModal                 | `Boolean`                    | Use this to hide the modal as needed                                                                                                                                                            |
+| listHeaderComponent       | `React Component`            | `<Text> You can add any component here </Text>`                                                                                                                                                 |
+| listFooterComponent       | `React Component`            | `<Text> You can add any component here <Text>`                                                                                                                                                  |
+| listComponentStyles       | `Object`                     | `{listEmptyComponentStyle: ViewStyle, itemSeparatorStyle: ViewStyle, sectionHeaderStyle: TextStyle}`                                                                                            |
+| listEmptyComponent        | `React Component`            | `<Text> You can add any component here <Text>`                                                                                                                                                  |
+| checkboxControls          | `Object`                     | `{checkboxSize: number, checkboxStyle: ViewStyle, checkboxLabelStyle: TextStyle, checkboxComponent?: React.ReactNode, checkboxDisabledStyle?: ViewStyle, checkboxUnselectedColor?: ColorValue}` |
+| listControls              | `Object`                     | `{ selectAllText: 'Choose all', unselectAllText: 'Remove all', selectAllCallback: () => {}, unselectAllCallback: () => {}, hideSelectAll: boolean, emptyListMessage: 'No record found'}`        |
+| searchControls            | `Object`                     | `{ textInputStyle: ViewStyle \| TextStyle,  textInputContainerStyle: ViewStyle, textInputProps: TextInputProps, searchCallback:(value)=>{}}`                                                    |
+| modalControls             | `Object`                     | `{ modalBackgroundStyle: ViewStyle, modalOptionsContainerStyle: ViewStyle, modalProps: ModalProps}`                                                                                             |
+
+## Deprecation Notice
+
+The following props would be removed in coming releases.
+
+- Individual props `checkboxSize`, `checkboxStyle`, `checkboxLabelStyle`, `checkboxComponent` would be replaced with a single object `checkboxControls` e.g
+
+```js
+checkboxControls = {
+  checkboxSize: 20,
+  checkboxStyle: {
+    backgroundColor: 'purple',
+    borderRadius: 30,
+    padding: 10,
+    borderColor: 'red',
+  },
+  checkboxLabelStyle: { color: 'red', fontSize: 20 },
+  checkboxComponent: <View style={styles.radioButton} />
+  ...
+};
+```
+
+- `searchInputStyle` would now be replaced with `textInputStyle` in the `searchControls` object
+
+```js
+searchControls = {
+  textInputStyle: {
+    color: 'blue',
+    fontWeight: '500',
+    minHeight: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    width: '70%',
+    textAlign: 'center',
+    backgroundColor: 'pink',
+  },
+  textInputContainerStyle: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textInputProps: {
+    placeholder: 'Search anything here',
+    placeholderTextColor: 'white',
+  },
+  ...
+};
+```
+
+- Individual props `modalBackgroundStyle`, `modalOptionsContainerStyle`, `modalProps` would be replaced with a single object `modalControls`
+
+```js
+modalControls = {
+  modalBackgroundStyle: ViewStyle,
+  modalOptionsContainerStyle: ViewStyle,
+  modalProps: ModalProps, //Use this to pass in react-native default modal props
+};
+```
 
 ## Contributing
 
@@ -291,19 +345,6 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 </a>
 
 Made with [contrib.rocks](https://contrib.rocks).
-
-## Discussion
-
-For discussion and feedback on this library. You can access it by heading over to the [Discussions Tab on Github](https://github.com/azeezat/react-native-select/discussions). We've created some sections to keep the discussion focused.
-
-| Title                                                                                                   | Topic                                                                |
-| ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| [Announcements 📣](https://github.com/azeezat/react-native-select/discussions/categories/announcements) | General announcements about this library.                            |
-| [Show and tell 🙌](https://github.com/azeezat/react-native-select/discussions/categories/show-and-tell) | Show off something you've made out of this library                   |
-| [Ideas 💡](https://github.com/azeezat/react-native-select/discussions/categories/ideas)                 | A place to Share ideas for new features.                             |
-| [Polls 🗳️](https://github.com/azeezat/react-native-select/discussions/categories/polls)                 | Take a vote from the community                                       |
-| [Q&A 🤝](https://github.com/azeezat/react-native-select/discussions/categories/q-a)                     | A place to ask the community for help on the New Architecture topics |
-| [General 💬](https://github.com/azeezat/react-native-select/discussions/categories/general)             | Chat about anything and everything here                              |
 
 ## License
 

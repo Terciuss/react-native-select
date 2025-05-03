@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -10,11 +10,9 @@ import {
   Alert,
   Image,
   Pressable,
-  TouchableHighlight,
 } from 'react-native';
 import DropdownSelect from 'react-native-input-select';
 import {countries} from './data';
-import {DropdownSelectHandle} from '../../src/types/index.types';
 
 export default function App() {
   const [user, setUser] = useState<string>('');
@@ -25,12 +23,14 @@ export default function App() {
   const [item, setItem] = useState<any>('');
   const [menu, setMenu] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
+
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [ingredientOptions, setIngredientOptions] = useState<any[]>([
-    {label: 0, value: 0},
-    {label: 1, value: false},
-    {label: 2, value: 2, disabled: true},
+    {label: 'Pepper', value: '1'},
+    {label: 'Oil', value: '2'},
+    {label: 'Fish', value: '3', disabled: true},
   ]);
+
   useEffect(() => {
     setCurrency(['NGN']);
     setMenu(['F']);
@@ -40,14 +40,11 @@ export default function App() {
     console.log('You can make an API call when the modal opens.');
   };
 
-  const dropdownRef = useRef<DropdownSelectHandle | null>(null);
-
   return (
     <SafeAreaView>
       <ScrollView>
         <View style={styles.container}>
           <DropdownSelect
-            selectedValue=""
             label="Currency"
             placeholder="Empty State"
             options={[]}
@@ -75,36 +72,8 @@ export default function App() {
             label="Gender"
             placeholder="Select an option..."
             options={[
-              {
-                name: (
-                  <View style={styles.itemStyle}>
-                    <Image
-                      style={styles.avatarStyle}
-                      source={{
-                        uri: 'https://avatar.iran.liara.run/username?username=Azeezat+Raheem',
-                      }}
-                    />
-
-                    <Text>Male</Text>
-                  </View>
-                ),
-                id: 0,
-              },
-              {
-                name: (
-                  <View style={styles.itemStyle}>
-                    <Image
-                      style={styles.avatarStyle}
-                      source={{
-                        uri: 'https://avatar.iran.liara.run/public/boy?username=Ash',
-                      }}
-                    />
-
-                    <Text>Female</Text>
-                  </View>
-                ),
-                id: 1,
-              },
+              {name: 'Male', id: '1'},
+              {name: 'Female', id: '2'},
             ]}
             optionLabel={'name'}
             optionValue={'id'}
@@ -116,7 +85,7 @@ export default function App() {
               borderStyle: 'solid',
             }}
             dropdownErrorTextStyle={{color: 'red', fontWeight: '500'}}
-            error={gender === undefined ? 'Gender is required' : ''}
+            error={gender ? '' : 'Gender is required'}
             modalControls={{
               modalProps: {
                 onShow: () => logMovies(),
@@ -174,20 +143,15 @@ export default function App() {
             label="Meal preferences"
             placeholder="Select your meal preferences"
             options={[
-              {name: '🍛 Rice', value: '1', disabled: false},
+              {name: '🍛 Rice', value: '1', disabled: true},
               {name: '🍗 Chicken', value: '2'},
-              {name: '🥦 Brocoli', value: '3', disabled: false},
+              {name: '🥦 Brocoli', value: '3', disabled: true},
               {name: '🍕 Pizza', value: '4'},
             ]}
-            maxSelectableItems={2}
             optionLabel={'name'}
             optionValue={'value'}
             selectedValue={meals}
-            onValueChange={(itemValue: any) => {
-              meals.length === 2 && console.log('You can only select 2 meals');
-
-              setMeals(itemValue);
-            }}
+            onValueChange={(itemValue: any) => setMeals(itemValue)}
             dropdownStyle={{
               backgroundColor: 'yellow',
               paddingVertical: 5,
@@ -264,18 +228,7 @@ export default function App() {
               fontWeight: '900',
             }}
           />
-          <TouchableHighlight
-            onPress={() => dropdownRef.current?.open()}
-            style={{
-              alignSelf: 'flex-start',
-              backgroundColor: 'green',
-              marginBottom: 20,
-              padding: 3,
-            }}>
-            <Text style={{color: 'white'}}>
-              Open the dropdown below by pressing this component
-            </Text>
-          </TouchableHighlight>
+
           <DropdownSelect
             label="Customized components in list"
             placeholder="Select multiple countries..."
@@ -308,11 +261,6 @@ export default function App() {
                   <Button
                     title="Left button"
                     onPress={() => Alert.alert('Left button pressed')}
-                    color="#007AFF"
-                  />
-                  <Button
-                    title="Close button"
-                    onPress={() => dropdownRef.current?.close()}
                     color="#007AFF"
                   />
                   <Button
@@ -369,7 +317,6 @@ export default function App() {
               unselectAllCallback: () => Alert.alert('You removed everything'),
               emptyListMessage: 'No record found',
             }}
-            ref={dropdownRef}
           />
 
           {/* Section list */}
@@ -519,16 +466,5 @@ const styles = StyleSheet.create({
     borderRadius: 20 / 2,
     borderWidth: 3,
     borderColor: 'white',
-  },
-  avatarStyle: {
-    height: 20,
-    width: 20,
-    borderRadius: 20,
-    marginRight: 5,
-  },
-  itemStyle: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

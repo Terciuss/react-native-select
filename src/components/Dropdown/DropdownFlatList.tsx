@@ -1,9 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useRef } from 'react';
 import { FlatList, FlatListProps, StyleSheet } from 'react-native';
-import DropdownListItem from '../Dropdown/DropdownListItem';
+import DropdownListItem from './DropdownListItem';
 import { ItemSeparatorComponent, ListEmptyComponent } from '../Others';
-import { TFlatList } from '../../types/index.types';
+import { TFlatList } from 'src/types/index.types';
 
 const DropdownFlatList = ({
   options,
@@ -16,6 +16,11 @@ const DropdownFlatList = ({
   handleMultipleSelections,
   handleSingleSelection,
   primaryColor,
+  checkboxSize, // kept for backwards compatibility to be removed in future release
+  checkboxStyle, // kept for backwards compatibility to be removed in future release
+  checkboxLabelStyle, // kept for backwards compatibility to be removed  in future release
+  checkboxComponentStyles,
+  checkboxComponent,
   checkboxControls,
   listComponentStyles,
   listIndex,
@@ -26,7 +31,7 @@ const DropdownFlatList = ({
   const flatlistRef = useRef<FlatList<TFlatList>>(null);
 
   const scrollToItem = (index: number) => {
-    flatlistRef?.current?.scrollToIndex({
+    flatlistRef.current?.scrollToIndex({
       index,
       animated: true,
     });
@@ -38,15 +43,8 @@ const DropdownFlatList = ({
     }
   }, [listIndex]);
 
-  const itemSeparator = () => (
-    <ItemSeparatorComponent
-      itemSeparatorStyle={listComponentStyles?.itemSeparatorStyle}
-    />
-  );
-
   return (
     <FlatList
-      testID="react-native-input-select-flat-list"
       data={options}
       extraData={isMultiple ? selectedItems : selectedItem}
       initialNumToRender={5}
@@ -63,7 +61,11 @@ const DropdownFlatList = ({
       contentContainerStyle={[
         isSearchable ? { paddingTop: 0 } : styles.contentContainerStyle,
       ]}
-      ItemSeparatorComponent={itemSeparator}
+      ItemSeparatorComponent={() => (
+        <ItemSeparatorComponent
+          itemSeparatorStyle={listComponentStyles?.itemSeparatorStyle}
+        />
+      )}
       renderItem={(item) =>
         _renderItem(item, {
           optionLabel,
@@ -75,6 +77,11 @@ const DropdownFlatList = ({
             : handleSingleSelection,
           scrollToItem,
           primaryColor,
+          checkboxSize, // kept for backwards compatibility
+          checkboxStyle, // kept for backwards compatibility
+          checkboxLabelStyle, // kept for backwards compatibility
+          checkboxComponentStyles, // kept for backwards compatibility
+          checkboxComponent, // kept for backwards compatibility
           checkboxControls,
         })
       }
@@ -100,7 +107,12 @@ const _renderItem = ({ item }: any, props: any) => {
       selectedOption={props.selectedOption}
       onChange={props.onChange}
       primaryColor={props.primaryColor}
+      checkboxSize={props.checkboxSize}
+      checkboxStyle={props.checkboxStyle}
+      checkboxLabelStyle={props.checkboxLabelStyle}
       scrollToItem={props.scrollToItem}
+      checkboxComponentStyles={props.checkboxComponentStyles}
+      checkboxComponent={props.checkboxComponent}
       checkboxControls={props.checkboxControls}
     />
   );

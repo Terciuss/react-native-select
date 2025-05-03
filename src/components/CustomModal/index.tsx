@@ -1,5 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, { PropsWithChildren, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import {
   KeyboardAvoidingView,
   Modal,
@@ -13,9 +12,15 @@ import {
 import { colors } from '../../styles/colors';
 import { TCustomModalControls } from 'src/types/index.types';
 
+type ScreenWrapperProps = {
+  children: React.ReactNode;
+};
+
 // In iOS, `SafeAreaView` does not automatically account on keyboard.
 // Therefore, for iOS we need to wrap the content in `KeyboardAvoidingView`.
-const ModalContentWrapper = ({ children }: PropsWithChildren): ReactElement => {
+const ModalContentWrapper = ({
+  children,
+}: ScreenWrapperProps): ReactElement => {
   return Platform.OS === 'ios' ? (
     <KeyboardAvoidingView style={[{ flex: 1 }]} behavior="padding">
       {children}
@@ -27,39 +32,42 @@ const ModalContentWrapper = ({ children }: PropsWithChildren): ReactElement => {
 
 const CustomModal = ({
   visible,
+  closeModal,
+  modalBackgroundStyle, //kept for backwards compatibility
+  modalOptionsContainerStyle, //kept for backwards compatibility
   modalControls,
+  modalProps, //kept for backwards compatibility
   children,
-  onRequestClose,
-}: {
-  modalControls?: TCustomModalControls;
-} & ModalProps) => {
+}: TCustomModalControls & ModalProps) => {
   return (
     <Modal
-      visible={visible}
-      testID="react-native-input-select-modal"
       transparent={true}
+      visible={visible}
+      onRequestClose={() => closeModal?.()}
       animationType="fade"
       {...modalControls?.modalProps}
+      {...modalProps} //kept for backwards compatibility
     >
       {/*Used to fix the select with search box behavior in iOS*/}
       <ModalContentWrapper>
         <TouchableOpacity
-          onPress={onRequestClose}
+          onPress={() =>
+            closeModal?.() || modalControls?.modalProps?.closeModal?.()
+          }
           style={[
             styles.modalContainer,
             styles.modalBackgroundStyle,
-            modalControls?.modalBackgroundStyle,
+            modalControls?.modalBackgroundStyle || modalBackgroundStyle,
           ]}
-          aria-label="close modal"
         >
           {/* Added this `TouchableWithoutFeedback` wrapper because of the closing modal on expo web */}
-          <TouchableWithoutFeedback accessible={false}>
+          <TouchableWithoutFeedback onPress={() => {}}>
             <SafeAreaView
               style={[
                 styles.modalOptionsContainer,
-                modalControls?.modalOptionsContainerStyle,
+                modalControls?.modalOptionsContainerStyle ||
+                  modalOptionsContainerStyle,
               ]}
-              testID="react-native-input-select-modal-body"
             >
               {children}
             </SafeAreaView>

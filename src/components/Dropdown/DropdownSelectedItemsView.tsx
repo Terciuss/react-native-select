@@ -14,7 +14,7 @@ import { inputStyles } from '../../styles/input';
 const DropdownSelectedItemsView = ({
   placeholder,
   error,
-  labelsOfSelectedItems,
+  getSelectedItemsLabel,
   openModal,
   isMultiple,
   selectedItem,
@@ -30,10 +30,6 @@ const DropdownSelectedItemsView = ({
   disabled,
   setIndexOfSelectedItem,
 }: any) => {
-  const openActions = (label: string) => {
-    openModal();
-    setIndexOfSelectedItem(label); // immediately scrolls to list item with the specified label when modal
-  };
   return (
     <Pressable
       onPress={() => openModal()}
@@ -51,8 +47,6 @@ const DropdownSelectedItemsView = ({
           },
       ]}
       disabled={disabled}
-      aria-disabled={disabled}
-      testID="react-native-input-select-dropdown-input-container"
     >
       <ScrollView
         horizontal
@@ -64,10 +58,13 @@ const DropdownSelectedItemsView = ({
           onStartShouldSetResponder={() => true}
         >
           {isMultiple ? (
-            labelsOfSelectedItems?.map((label: string, i: Number) => (
+            getSelectedItemsLabel()?.map((label: string, i: Number) => (
               <DropdownContent
-                onPress={() => openActions(label)}
-                key={`react-native-input-select-list-item-${Math.random()}-${i}`}
+                onPress={() => {
+                  openModal();
+                  setIndexOfSelectedItem(label); // immediately scrolls to list item with the specified label when modal
+                }}
+                key={`react-native-input-select-${Math.random()}-${i}`}
                 style={[
                   styles.selectedItems,
                   { backgroundColor: primaryColor },
@@ -79,13 +76,16 @@ const DropdownSelectedItemsView = ({
             ))
           ) : (
             <DropdownContent
-              onPress={() => openActions(labelsOfSelectedItems)}
+              onPress={() => {
+                openModal();
+                setIndexOfSelectedItem(getSelectedItemsLabel()); // immediately scrolls to list item with the specified label when modal
+              }}
               style={[styles.blackText, selectedItemStyle]}
-              label={labelsOfSelectedItems}
+              label={getSelectedItemsLabel()}
               disabled={disabled}
             />
           )}
-          {selectedItem === '' && selectedItems?.length === 0 && (
+          {!selectedItem && selectedItems?.length === 0 && (
             <DropdownContent
               onPress={() => openModal()}
               style={[styles.blackText, placeholderStyle]}

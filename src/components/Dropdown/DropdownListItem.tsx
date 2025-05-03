@@ -10,12 +10,19 @@ const DropdownListItem = ({
   selectedOption,
   onChange,
   primaryColor,
+  checkboxSize,
+  checkboxStyle,
+  checkboxLabelStyle,
+  checkboxComponentStyles,
+  checkboxComponent,
   checkboxControls,
 }: any) => {
   return (
     <TouchableOpacity
       style={styles.listItemContainerStyle}
-      onPress={item.disabled ? () => {} : () => onChange(item[optionValue])}
+      onPress={
+        item.disabled ? () => {} : () => onChange(item[optionValue]) // intentionally didn't use the disable property
+      }
     >
       <CheckBox
         value={
@@ -27,7 +34,13 @@ const DropdownListItem = ({
         onChange={() => onChange(item[optionValue])}
         primaryColor={primaryColor}
         checkboxControls={checkboxControls}
+        checkboxSize={checkboxComponentStyles?.checkboxSize || checkboxSize}
+        checkboxStyle={checkboxComponentStyles?.checkboxStyle || checkboxStyle}
+        checkboxLabelStyle={
+          checkboxComponentStyles?.checkboxLabelStyle || checkboxLabelStyle
+        }
         disabled={item.disabled}
+        checkboxComponent={checkboxComponent}
       />
     </TouchableOpacity>
   );

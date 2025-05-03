@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  TextInput,
-  StyleSheet,
-  View,
-  Platform,
-  TextInputProps,
-  ViewStyle,
-  ColorValue,
-} from 'react-native';
+import { TextInput, StyleSheet, View, Platform } from 'react-native';
 import { inputStyles } from '../../styles/input';
 
 export const Input = ({
@@ -18,10 +10,7 @@ export const Input = ({
   primaryColor,
   textInputContainerStyle,
   ...rest
-}: {
-  primaryColor?: ColorValue;
-  textInputContainerStyle?: ViewStyle;
-} & TextInputProps) => {
+}: any) => {
   const [isFocused, setFocus] = useState(false);
 
   return (

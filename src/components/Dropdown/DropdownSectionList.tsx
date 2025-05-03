@@ -1,14 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState, useRef } from 'react';
 import { SectionList, StyleSheet } from 'react-native';
-import DropdownListItem from '../Dropdown/DropdownListItem';
+import DropdownListItem from './DropdownListItem';
 import {
   ItemSeparatorComponent,
   ListEmptyComponent,
   SectionHeaderTitle,
 } from '../Others';
 import { extractPropertyFromArray } from '../../utils';
-import { TSectionList } from '../../types/index.types';
+import { TSectionList } from 'src/types/index.types';
 
 const DropdownSectionList = ({
   options,
@@ -21,6 +21,11 @@ const DropdownSectionList = ({
   handleMultipleSelections,
   handleSingleSelection,
   primaryColor,
+  checkboxSize,
+  checkboxStyle,
+  checkboxLabelStyle,
+  checkboxComponentStyles,
+  checkboxComponent,
   checkboxControls,
   listComponentStyles,
   listIndex,
@@ -60,11 +65,11 @@ const DropdownSectionList = ({
 
   const sectionlistRef = useRef<SectionList<TSectionList>>(null);
 
-  const scrollToLocation = (index: any) => {
+  const scrollToLocation = (listIndex: any) => {
     sectionlistRef?.current?.scrollToLocation({
-      sectionIndex: index.sectionIndex,
+      sectionIndex: listIndex.sectionIndex,
       animated: true,
-      itemIndex: index.itemIndex,
+      itemIndex: listIndex.itemIndex,
     });
   };
 
@@ -74,15 +79,8 @@ const DropdownSectionList = ({
     }
   }, [listIndex]);
 
-  const itemSeparator = () => (
-    <ItemSeparatorComponent
-      itemSeparatorStyle={listComponentStyles?.itemSeparatorStyle}
-    />
-  );
-
   return (
     <SectionList
-      testID="react-native-input-select-section-list"
       sections={options}
       extraData={isMultiple ? selectedItems : selectedItem}
       initialNumToRender={5}
@@ -99,7 +97,11 @@ const DropdownSectionList = ({
       contentContainerStyle={[
         isSearchable ? { paddingTop: 0 } : styles.contentContainerStyle,
       ]}
-      ItemSeparatorComponent={itemSeparator}
+      ItemSeparatorComponent={() => (
+        <ItemSeparatorComponent
+          itemSeparatorStyle={listComponentStyles?.itemSeparatorStyle}
+        />
+      )}
       renderItem={(item) =>
         _renderItem(item, {
           optionLabel,
@@ -110,6 +112,11 @@ const DropdownSectionList = ({
             ? handleMultipleSelections
             : handleSingleSelection,
           primaryColor,
+          checkboxSize, // kept for backwards compatibility
+          checkboxStyle, // kept for backwards compatibility
+          checkboxLabelStyle, // kept for backwards compatibility
+          checkboxComponentStyles, // kept for backwards compatibility
+          checkboxComponent, // kept for backwards compatibility
           checkboxControls,
           expandedSections,
         })
@@ -150,6 +157,11 @@ const _renderItem = ({ section: { title }, item }: any, props: any) => {
       selectedOption={props.selectedOption}
       onChange={props.onChange}
       primaryColor={props.primaryColor}
+      checkboxSize={props.checkboxSize}
+      checkboxStyle={props.checkboxStyle}
+      checkboxLabelStyle={props.checkboxLabelStyle}
+      checkboxComponentStyles={props.checkboxComponentStyles}
+      checkboxComponent={props.checkboxComponent}
       checkboxControls={props.checkboxControls}
     />
   );

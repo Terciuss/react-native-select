@@ -9,8 +9,10 @@ import type {
 
 export type DropdownProps = CommonDropdownProps &
   TDropdownInputProps &
-  TControls &
-  TListProps;
+  TSearchControls &
+  TCheckboxControls &
+  TCustomModalControls &
+  TListControls;
 
 export type CommonDropdownProps = {
   testID?: string;
@@ -18,10 +20,9 @@ export type CommonDropdownProps = {
   options: TFlatList | TSectionList;
   optionLabel?: string;
   optionValue?: string;
-  onValueChange: (selectedItems: TSelectedItem | TSelectedItem[]) => void;
-  selectedValue: TSelectedItem | TSelectedItem[];
+  onValueChange: Function;
+  selectedValue?: TSelectedItem | TSelectedItem[];
   autoCloseOnSelect?: boolean;
-  maxSelectableItems?: number;
 };
 
 export type TDropdownInputProps = {
@@ -43,39 +44,61 @@ export type TDropdownInputProps = {
   primaryColor?: ColorValue;
   disabled?: boolean;
   placeholderStyle?: TextStyle;
+  hideModal?: boolean;
 };
 
-type TControls = {
-  searchControls?: TSearchControls;
-  checkboxControls?: TCheckboxControls;
-  modalControls?: TCustomModalControls;
-  listControls?: TListControls;
+export type TSearchControls = {
+  /** @deprecated Use `searchControls = {{textInputStyle: ViewStyle | TextStyle }}` instead.*/
+  searchInputStyle?: ViewStyle;
+  searchControls?: {
+    textInputStyle?: ViewStyle | TextStyle;
+    textInputContainerStyle?: ViewStyle;
+    textInputProps?: TextInputProps;
+    searchCallback?: (value: string) => void;
+  };
 };
-
-type TSearchControls = {
-  textInputStyle?: ViewStyle | TextStyle;
-  textInputContainerStyle?: ViewStyle;
-  textInputProps?: TextInputProps;
-  searchCallback?: (value: string) => void;
-};
-
 export type TCheckboxControls = {
+  /** @deprecated Use `checkboxControls = {{checkboxSize: number }}` instead.*/
   checkboxSize?: number;
-  checkboxContainerStyle?: ViewStyle;
+  /** @deprecated Use `checkboxControls = {{checkboxStyle: ViewStyle }}` instead.*/
   checkboxStyle?: ViewStyle;
+  /** @deprecated Use `checkboxControls = {{checkboxLabelStyle: TextStyle }}` instead.*/
   checkboxLabelStyle?: TextStyle;
+  /** @deprecated Use `checkboxControls` instead.*/
+  checkboxComponentStyles?: {
+    checkboxSize?: number;
+    checkboxStyle?: ViewStyle;
+    checkboxLabelStyle?: TextStyle;
+  };
+  /** @deprecated Use `checkboxControls = {{checkboxComponent: <View></View> }}` instead.*/
   checkboxComponent?: React.ReactNode;
-  checkboxDisabledStyle?: ViewStyle;
-  checkboxUnselectedColor?: ColorValue;
+  checkboxControls?: {
+    checkboxSize?: number;
+    checkboxStyle?: ViewStyle;
+    checkboxLabelStyle?: TextStyle;
+    checkboxComponent?: React.ReactNode;
+    checkboxDisabledStyle?: ViewStyle;
+    checkboxUnselectedColor?: ColorValue;
+  };
 };
 
 export type TCustomModalControls = {
+  /** @deprecated Use `modalControls = {{modalBackgroundStyle: ViewStyle}} instead.*/
   modalBackgroundStyle?: ViewStyle;
+  /** @deprecated Use `modalControls = {{ modalOptionsContainerStyle: ViewStyle}} instead.*/
   modalOptionsContainerStyle?: ViewStyle;
+  /** @deprecated Use `modalControls = {{modalProps: ModalProps }}` instead.*/
   modalProps?: ModalProps;
-};
+  modalControls?: {
+    modalBackgroundStyle?: ViewStyle;
+    modalOptionsContainerStyle?: ViewStyle;
+    modalProps?: ModalProps & TCloseModal;
+  };
+} & TCloseModal;
 
-export type TListProps = {
+type TCloseModal = { closeModal?: () => void };
+
+export type TListControls = {
   listHeaderComponent?: React.ReactNode;
   listFooterComponent?: React.ReactNode;
   listComponentStyles?: {
@@ -84,32 +107,22 @@ export type TListProps = {
     sectionHeaderStyle?: TextStyle;
   };
   listEmptyComponent?: React.ReactNode;
+  listControls?: {
+    selectAllText?: string;
+    unselectAllText?: string;
+    selectAllCallback?: () => void;
+    unselectAllCallback?: () => void;
+    hideSelectAll?: boolean;
+    emptyListMessage?: string;
+  };
 };
 
-type TListControls = {
-  selectAllText?: string;
-  unselectAllText?: string;
-  selectAllCallback?: () => void;
-  unselectAllCallback?: () => void;
-  hideSelectAll?: boolean;
-  emptyListMessage?: string;
-  keyboardShouldPersistTaps?: 'always' | 'never' | 'handled';
-};
-
-export type TSelectedItem = string | number | boolean | undefined;
-export type TSelectedItemWithReactComponent =
-  | TSelectedItem
-  | React.ReactElement;
+export type TSelectedItem = string | number | boolean;
 
 export type TFlatList = TFlatListItem[];
 export type TFlatListItem = {
-  [key: string]: TSelectedItemWithReactComponent;
+  [key: string]: TSelectedItem | React.JSX.Element;
 };
 
 export type TSectionList = TSectionListItem[];
 export type TSectionListItem = { title: string; data: TFlatList };
-
-export interface DropdownSelectHandle {
-  open: () => void;
-  close: () => void;
-}
