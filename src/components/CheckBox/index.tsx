@@ -38,7 +38,7 @@ const CheckBox = ({
   return (
     <Pressable
       onPress={onChange ? () => onChange(!value) : null}
-      style={[styles.checkboxContainer]}
+      style={[styles.checkboxContainer, checkboxControls?.checkboxContainerStyle]}
       disabled={disabled}
     >
       <View

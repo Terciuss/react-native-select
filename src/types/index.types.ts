@@ -74,6 +74,7 @@ export type TCheckboxControls = {
   checkboxComponent?: React.ReactNode;
   checkboxControls?: {
     checkboxSize?: number;
+    checkboxContainerStyle?: ViewStyle;
     checkboxStyle?: ViewStyle;
     checkboxLabelStyle?: TextStyle;
     checkboxComponent?: React.ReactNode;
